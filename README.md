@@ -23,7 +23,7 @@ Rating: Numerical ratings ranging from 1 to 5 accompany the reviews, with 1 bein
 
 LinkedIn Dataset : [Dataset](https://statso.io/sentiment-analysis-case-study/)
 
-**Exploratory Data Analysis (EDA)**
+**Exploratory Data Analysis (EDA)**:
 
 Performing Exploratory Data Analysis (EDA) on app reviews is a crucial step in understanding user sentiment and gathering insights that can inform decisions about app improvements. 
 Here’s a detailed breakdown of how you can analyze the length of reviews, ratings, and other relevant factors in EDA:
