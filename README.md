@@ -1,6 +1,6 @@
-App Reviews Sentiment Analysis using Python 
-![image](https://github.com/user-attachments/assets/c2c8c464-0c9d-4f76-91f3-dc6e5a822b44)
 
+![image](https://github.com/user-attachments/assets/c2c8c464-0c9d-4f76-91f3-dc6e5a822b44)
+App Reviews Sentiment Analysis using Python
 
 
 
