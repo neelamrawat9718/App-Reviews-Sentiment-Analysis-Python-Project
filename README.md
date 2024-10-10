@@ -95,7 +95,7 @@ linkedin_data.info()
 ```
 ![image](https://github.com/user-attachments/assets/39f69e52-f075-4add-9bf3-849820a61b46)
 
-**Exploratory Data Analysis**
+**Exploratory Data Analysis**:
 Now, let’s explore this data step by step. I started by analyzing the distribution of ratings. It provided insight into the overall sentiment of the reviews. 
 ```python
 #plotting the distribution of rating
@@ -144,7 +144,7 @@ plt.show()
 ```
 ![image](https://github.com/user-attachments/assets/945ce6c7-8b55-4fe1-a6c2-e7744a4a9102)
 
-**Adding Sentiment Labels in the Data**
+**Adding Sentiment Labels in the Data**:
 Utilized Textblob for this task. TextBlob provides a polarity score ranging from -1 (very negative) to 1 (very positive) for a given text. I used this score to classify each review’s sentiment as positive, neutral, or negative.
 ```python
 from textblob import TextBlob
@@ -168,7 +168,7 @@ print(linkedin_data.head())
 ```
 ![image](https://github.com/user-attachments/assets/e74689c0-0eb8-4c7b-92cb-f16ac058777e)
 
-**Analyzing App Reviews Sentiments**
+**Analyzing App Reviews Sentiments**:
 Now that our dataset is labelled, performed app reviews sentiment analysis. I began by analyzing the distribution of sentiments across the dataset. It gave us a basic understanding of the general sentiment tendency in the reviews:
 ```python
 # Analyzing the distribution of sentiments
