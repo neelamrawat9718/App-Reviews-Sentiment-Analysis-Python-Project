@@ -72,6 +72,162 @@ Better performance: The frequent mention of performance issues indicates that us
 
 Improved functionality: The focus on the app's functionality suggests that users expect the app to work effectively and meet their needs.
 
+**Import Required Libraries**:
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+**Exploring the Datasets**:
+```python
+# load the dataset
+linkedin_data = pd.read_csv(r'C:\Users\neela\Desktop\linkedin-reviews.csv')
+
+# display the first few rows of the dataset
+linkedin_data.head()
+```
+![image](https://github.com/user-attachments/assets/6b467a60-5bf0-4143-9104-c7631342c29f)
+
+```python
+# provided the summary of the dataframe named linkedin_data
+linkedin_data.info()
+```
+![image](https://github.com/user-attachments/assets/39f69e52-f075-4add-9bf3-849820a61b46)
+
+**Exploratory Data Analysis**
+Now, let’s explore this data step by step. I started by analyzing the distribution of ratings. It provided insight into the overall sentiment of the reviews. 
+```python
+#plotting the distribution of rating
+
+# Set the visual style for the plot using Seaborn's whitegrid style
+sns.set(style='whitegrid')
+
+# Create a figure for the plot and set the size to 9 inches by 5 inches
+plt.figure(figsize=(9,5))
+
+# Generate a count plot for the 'Rating' column in the 'linkedin_data' DataFrame
+# This will show the count of each unique value in the 'Rating' column as bars
+sns.countplot(data = linkedin_data ,x ='Rating')
+
+
+# Add a title to the plot
+plt.title('Distribution of Ratings')
+
+# Label the x-axis as 'Rating' to indicate what is being measured on this axis
+plt.xlabel('Rating')
+
+# Label the y-axis as 'Count' to indicate the number of occurrences of each rating
+plt.ylabel('Count')
+
+# Display the plot on the screen
+plt.show()
+```
+![image](https://github.com/user-attachments/assets/4307f2c0-5d70-4f61-8a6f-cc3a3c197e49)
+Next, I analyzed the length of the reviews, as this can sometimes correlate with the sentiment or detail of feedback. I calculated the length of each review and then visualize the data:
+```python
+# Calculating the length of each review
+linkedin_data['Review Length'] = linkedin_data['Review'].apply(len)
+
+# Plotting the distribution of review lengths
+plt.figure(figsize=(9, 6))
+# Creating the Histogram and KDE Plot
+sns.histplot(linkedin_data['Review Length'], bins=50,kde=True)
+
+# Adding Title and Labels
+plt.title('Distribution of Review Lengths')
+plt.xlabel('Length of Review')
+plt.ylabel('Count')
+
+# Display the plot on the screen
+plt.show()
+```
+![image](https://github.com/user-attachments/assets/945ce6c7-8b55-4fe1-a6c2-e7744a4a9102)
+
+**Adding Sentiment Labels in the Data**
+Utilized Textblob for this task. TextBlob provides a polarity score ranging from -1 (very negative) to 1 (very positive) for a given text. I used this score to classify each review’s sentiment as positive, neutral, or negative.
+```python
+from textblob import TextBlob
+
+def textblob_sentiment_analysis(review):
+    # Analyzing the sentiment of the review
+    sentiment = TextBlob(review).sentiment
+    # Classifying based on polarity
+    if sentiment.polarity > 0.1:
+        return 'Positive'
+    elif sentiment.polarity < -0.1:
+        return 'Negative'
+    else:
+        return 'Neutral'
+
+# Applying TextBlob sentiment analysis to the reviews
+linkedin_data['Sentiment'] = linkedin_data['Review'].apply(textblob_sentiment_analysis)
+
+# Displaying the first few rows with the sentiment
+print(linkedin_data.head())
+```
+![image](https://github.com/user-attachments/assets/e74689c0-0eb8-4c7b-92cb-f16ac058777e)
+
+**Analyzing App Reviews Sentiments**
+Now that our dataset is labelled, performed app reviews sentiment analysis. I began by analyzing the distribution of sentiments across the dataset. It gave us a basic understanding of the general sentiment tendency in the reviews:
+```python
+# Analyzing the distribution of sentiments
+sentiment_distribution = linkedin_data['Sentiment'].value_counts()
+
+# Plotting the distribution of sentiments
+plt.figure(figsize=(9, 5))
+sns.barplot(x=sentiment_distribution.index, y=sentiment_distribution.values)
+plt.title('Distribution of Sentiments')
+plt.xlabel('Sentiment')
+plt.ylabel('Count')
+plt.show()
+```
+![image](https://github.com/user-attachments/assets/c8d1fa5c-ffbd-48df-9812-95ad282512b3)
+
+So, although the app has low ratings, still the reviewers don’t use many negative words in the reviews for the app.
+
+Next,explored the relationship between the sentiments and the ratings. This analysis helped us understand whether there is a correlation between the sentiment of the text and the numerical rating. 
+```python
+sns.set(style='darkgrid')
+plt.figure(figsize=(10, 5))
+sns.countplot(data=linkedin_data, x='Rating', hue='Sentiment')
+plt.title('Sentiment Distribution Across Ratings')
+plt.xlabel('Rating')
+plt.ylabel('Count')
+plt.legend(title='Sentiment')
+plt.show()
+```
+![image](https://github.com/user-attachments/assets/f14ad388-659a-4a6c-876c-810fae75f816)
+
+Performed a text analysis to identify common words or themes within each sentiment category. It involved examining the most frequently occurring words in positive, negative, and neutral reviews using a word cloud:
+```python
+pip install wordcloud
+from wordcloud import WordCloud
+# Function to generate a word cloud for a given sentiment
+def generate_word_cloud(sentiment):
+    text = ' '.join(linkedin_data[linkedin_data['Sentiment'] == sentiment]['Review'])
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+    plt.figure(figsize=(9,5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.title(f'{sentiment} Reviews')
+    plt.axis('off')
+    plt.show()
+
+# Generate word clouds for each sentiment
+for sentiment in ['Positive', 'Negative', 'Neutral']:
+    generate_word_cloud(sentiment)
+```
+![image](https://github.com/user-attachments/assets/ac44b7a6-1a15-4e18-a44b-31752a1d94ed)
+
+![image](https://github.com/user-attachments/assets/5ad9186b-f438-439a-826e-3b0ee8a25127)
+
+![image](https://github.com/user-attachments/assets/b9271ed3-5281-4c5a-8daf-52e9fdbebf79)
+
+
+
+
+
+
 
 
 
